@@ -11,21 +11,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 
-
-
 @Controller
 public class BookController {
-	
-    @Autowired
-    private BookRepository repository;
-    
-    public String save(Book book){
+
+	@Autowired
+	private BookRepository repository;
+
+	public String save(Book book){
         repository.save(book);
         //return "redirect:studentlist";
         return "test";
-    }    
-    
-    public void doSomething() {
-        //List < Book > books = repository.findByTitle("Edwards");
+    }
+
+	@RequestMapping(value= {"/", "/booklist"}) 
+	public String bookList(Model model) {
+        model.addAttribute("books", repository.findAll());
+        return "booklist";
     }
 }
+
+
+
+
+
+
+
+
+
+
