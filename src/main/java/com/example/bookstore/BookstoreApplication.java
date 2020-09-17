@@ -28,6 +28,7 @@ public class BookstoreApplication {
 			log.info("save a couple of books");
 			
 			repository.save( new Book("The Hobbit", "J. R. R. Tolkien", 1937, "123-456-79-9102-3", 25) );
+			repository.save( new Book("Interesting Times", "Terry Pratchett", 1994, "0-575-05800-5", 10) );
 			repository.save( new Book("The Quantum Thief", "Hannu Rajaniemi", 2010, "978-951-20-8395-4", 15) );
 			
 			log.info("fetch all books");
