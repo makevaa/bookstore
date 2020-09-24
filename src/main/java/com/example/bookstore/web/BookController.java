@@ -1,18 +1,15 @@
 package com.example.bookstore.web;
 
-import java.awt.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.CategoryRepository;
 
 
 @Controller
@@ -20,6 +17,8 @@ public class BookController {
 
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private CategoryRepository crepository;
 
 	@RequestMapping(value= {"/", "/booklist"}) 
 	public String bookList(Model model) {
@@ -30,12 +29,14 @@ public class BookController {
     @RequestMapping(value = "/add")
     public String addBook(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }     
     
     @RequestMapping(value = "/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
     	model.addAttribute("book", repository.findById(bookId));
+    	model.addAttribute("categories", crepository.findAll());
     	//System.out.println("Opened edit book page...");
         return "editbook";
     }   
@@ -47,7 +48,8 @@ public class BookController {
     }    
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String updateBook(@PathVariable("id") Long bookId, Book book) {
+    //public String updateBook(@PathVariable("id") Long bookId, Book book) {
+    public String updateBook(Book book) {
     	//book.setId(bookId);
         repository.save(book);
         return "redirect:../booklist";

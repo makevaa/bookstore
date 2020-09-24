@@ -17,9 +17,17 @@
 		  	<label for="isbn">ISBN</label>
 			<input type="text" th:field="*{isbn}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+			
 			<label for="year">Year</label>
 			<input type="text" th:field="*{year}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+		
+			
+		  	<label for="catlist">Category</label>
+			 <select id="catlist" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select>
+			
 			<input type="submit" value="Update book"></input>
 		</form>
 	</div>
